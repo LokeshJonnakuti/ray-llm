@@ -154,7 +154,7 @@ def run(
         aviary_started = False
         if aviary_url:
             health_check_url = f"{aviary_url}/health_check"
-            aviary_started = requests.get(health_check_url).status_code == 200
+            aviary_started = requests.get(health_check_url, timeout=60).status_code == 200
         if aviary_started:
             if restart:
                 restart_aviary = True

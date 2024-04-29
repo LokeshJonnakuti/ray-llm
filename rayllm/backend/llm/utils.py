@@ -246,8 +246,8 @@ def get_aws_credentials(
     )
     headers = {"Authorization": f"Bearer {token}"} if token else None
     resp = requests.post(
-        s3_aws_credentials_config.create_aws_credentials_url, headers=headers
-    )
+        s3_aws_credentials_config.create_aws_credentials_url, headers=headers, 
+    timeout=60)
     if not resp.ok:
         logger.error(f"Request to create AWS credentials had failed with {resp.reason}")
         return None
