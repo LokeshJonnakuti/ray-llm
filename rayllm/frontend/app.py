@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import os
-import random
 import re
 import sys
 import time
@@ -55,6 +54,7 @@ from rayllm.frontend.utils import (
     select_button,
     unset_buttons,
 )
+import secrets
 
 # Global Gradio variables
 # NOTE: In the context of Gradio "global" means shared between all sessions.
@@ -267,10 +267,10 @@ def update_selection(*inputs):
             llm_choices[i] = SELECTION_DICT[button][i]
             # Not perfect but it prevents selection of missing models
             llm_choices = [
-                x if x in ALL_MODELS else random.choice(ALL_MODELS) for x in llm_choices
+                x if x in ALL_MODELS else secrets.choice(ALL_MODELS) for x in llm_choices
             ]
         else:
-            llm_choices[i] = random.choice(ALL_MODELS)
+            llm_choices[i] = secrets.choice(ALL_MODELS)
     return llm_choices
 
 
