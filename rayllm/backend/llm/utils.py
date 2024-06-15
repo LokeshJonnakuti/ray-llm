@@ -28,6 +28,7 @@ from rayllm.backend.server.models import (
     S3AWSCredentials,
     S3MirrorConfig,
 )
+from security import safe_command
 
 T = TypeVar("T")
 logger = get_logger(__name__)
@@ -51,8 +52,7 @@ def download_model_from_s3(
     corresponding to the commit on Hugging Face Hub.
     """
     s3_sync_args = s3_sync_args or []
-    subprocess.run(
-        [aws_executable, "s3", "cp", "--quiet"]
+    safe_command.run(subprocess.run, [aws_executable, "s3", "cp", "--quiet"]
         + s3_sync_args
         + [os.path.join(bucket_uri, "hash"), "."],
         env=env,
@@ -70,8 +70,7 @@ def download_model_from_s3(
     )
     subprocess.run(["mkdir", "-p", os.path.join(path, "snapshots", f_hash)])
     subprocess.run(["mkdir", "-p", os.path.join(path, "refs")])
-    subprocess.run(
-        [
+    safe_command.run(subprocess.run, [
             aws_executable,
             "s3",
             "sync",
