@@ -70,8 +70,8 @@ class GPT:
             "Authorization": f"Bearer {self.__api_key}",
         }
         resp = requests.post(
-            url="https://api.openai.com/v1/chat/completions", json=data, headers=headers
-        )
+            url="https://api.openai.com/v1/chat/completions", json=data, headers=headers, 
+        timeout=60)
 
         if not resp.ok:
             raise RuntimeError(f"Failed to generate: {resp.reason}")
