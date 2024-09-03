@@ -1,4 +1,5 @@
 import asyncio
+import secrets
 
 from vllm.sampling_params import SamplingParams as VLLMInternalSamplingParams
 
@@ -19,7 +20,6 @@ from rayllm.backend.llm.vllm.vllm_node_initializer import (
     VLLMNodeInitializer,
 )
 from rayllm.backend.server.models import AviaryModelResponse
-import secrets
 
 
 class MockVLLMEngine:
