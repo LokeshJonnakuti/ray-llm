@@ -1,5 +1,5 @@
 import asyncio
-from random import randint
+import secrets
 
 from vllm.sampling_params import SamplingParams as VLLMInternalSamplingParams
 
@@ -55,7 +55,7 @@ class MockVLLMEngine:
         )
         max_tokens = sampling_params.max_tokens
         if not max_tokens:
-            max_tokens = randint(1, 10)
+            max_tokens = secrets.SystemRandom().randint(1, 10)
         prompt = vllm_engine_request.prompt
         prompt_len = (
             len(prompt.split()) if isinstance(prompt, str) else len(prompt.prompt)

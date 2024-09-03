@@ -1,8 +1,8 @@
 import asyncio
 import logging
 import os
-import random
 import re
+import secrets
 import sys
 import time
 import traceback
@@ -267,10 +267,11 @@ def update_selection(*inputs):
             llm_choices[i] = SELECTION_DICT[button][i]
             # Not perfect but it prevents selection of missing models
             llm_choices = [
-                x if x in ALL_MODELS else random.choice(ALL_MODELS) for x in llm_choices
+                x if x in ALL_MODELS else secrets.choice(ALL_MODELS)
+                for x in llm_choices
             ]
         else:
-            llm_choices[i] = random.choice(ALL_MODELS)
+            llm_choices[i] = secrets.choice(ALL_MODELS)
     return llm_choices
 
 
