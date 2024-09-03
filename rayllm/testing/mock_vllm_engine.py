@@ -1,5 +1,4 @@
 import asyncio
-from random import randint
 
 from vllm.sampling_params import SamplingParams as VLLMInternalSamplingParams
 
@@ -20,6 +19,7 @@ from rayllm.backend.llm.vllm.vllm_node_initializer import (
     VLLMNodeInitializer,
 )
 from rayllm.backend.server.models import AviaryModelResponse
+import secrets
 
 
 class MockVLLMEngine:
@@ -55,7 +55,7 @@ class MockVLLMEngine:
         )
         max_tokens = sampling_params.max_tokens
         if not max_tokens:
-            max_tokens = randint(1, 10)
+            max_tokens = secrets.SystemRandom().randint(1, 10)
         prompt = vllm_engine_request.prompt
         prompt_len = (
             len(prompt.split()) if isinstance(prompt, str) else len(prompt.prompt)
